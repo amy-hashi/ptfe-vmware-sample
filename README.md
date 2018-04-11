@@ -22,7 +22,7 @@ Assumptions made by this example -
 Clone this repo to your local computer - `git clone git@github.com:amy-hashi/ptfe-vmware-sample.git`
 
 This repo contains the following files:  
-ptfe-vmware-sample/  
+```ptfe-vmware-sample/  
 ├── application-install/        <- Contains the files necessary to install/configure the application  
 │   ├── replicated-install.sh   <- The script that will initiate the application install  
 │   ├── replicated.conf         <- A config file for replicated specifying where files are located  
@@ -30,7 +30,7 @@ ptfe-vmware-sample/
 ├── README.md  
 ├── main.tf                     <- Terraform code to deploy infrastructure and application  
 ├── terraform.tfvars            <- Variable values go here  
-└── variables.tf                <- Variable definitions and options  
+└── variables.tf                <- Variable definitions and options  ```
 
 1. First open the main.tf file and note the lines with comments. If you use datastore clusters/RDS you will need to comment out lines 15-18 + 43 and uncomment lines 20-23 + 45.
 
