@@ -30,8 +30,8 @@ This repo contains the following files:
 ├── README.md  
 ├── main.tf                     <- Terraform code to deploy infrastructure and application  
 ├── terraform.tfvars            <- Variable values go here  
-└── variables.tf                <- Variable definitions and options  ```
-
+└── variables.tf                <- Variable definitions and options  
+```
 1. First open the main.tf file and note the lines with comments. If you use datastore clusters/RDS you will need to comment out lines 15-18 + 43 and uncomment lines 20-23 + 45.
 
 2. If you do use datastore clusters, open the variables.tf and comment out line 7 and uncomment line 10.
