@@ -22,13 +22,6 @@ data "vsphere_datastore" "datastore" {
 #  datacenter_id = "${data.vsphere_datacenter.dc.id}"
 #}
 
-## For use without an explicitly created resource pool. If you do use resource pools, please uncomment out the 4 lines below. 
-#data "vsphere_resource_pool" "pool" {
-#  name          = "cluster1/Resources"
-#  datacenter_id = "${data.vsphere_datacenter.dc.id}"
-#}
-
-## For use with a specific resource pool. Comment these out if you do not use resource pools.
 data "vsphere_resource_pool" "pool" {
   name          = "${var.resourcepool_name}"
   datacenter_id = "${data.vsphere_datacenter.dc.id}"

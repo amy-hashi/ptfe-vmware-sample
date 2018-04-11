@@ -9,9 +9,7 @@ variable "datastore_name" {}
 # If you use datastore clusters (RDS) please use this variable instaed of datastore_name
 #variable "datastore_cluster_name" {}
 
-## Comment out if you do not use resource pools
 variable "resourcepool_name" {}
-
 variable "network_name" {}
 variable "template_name" {}
 variable "hostname" {}
