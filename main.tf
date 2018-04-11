@@ -22,13 +22,13 @@ data "vsphere_datastore" "datastore" {
 #  datacenter_id = "${data.vsphere_datacenter.dc.id}"
 #}
 
-## For use without an explicitly created resource pool. If you do use resource pools, please comment out the 4 lines below.
+## For use without an explicitly created resource pool. If you do use resource pools, please uncomment out the 4 lines below. 
 #data "vsphere_resource_pool" "pool" {
 #  name          = "cluster1/Resources"
 #  datacenter_id = "${data.vsphere_datacenter.dc.id}"
 #}
 
-## For use with a specific resource pool
+## For use with a specific resource pool. Comment these out if you do not use resource pools.
 data "vsphere_resource_pool" "pool" {
   name          = "${var.resourcepool_name}"
   datacenter_id = "${data.vsphere_datacenter.dc.id}"
@@ -48,9 +48,10 @@ resource "vsphere_virtual_machine" "vm" {
   name             = "${var.hostname}"
   resource_pool_id = "${data.vsphere_resource_pool.pool.id}"
   datastore_id     = "${data.vsphere_datastore.datastore.id}"
-
+  ## Uncomment below line if you use datastore clusters/RDS and comment out the line above.
   #datastore_cluster_id    = "${data.vsphere_datastore_cluster.datastore_cluster.id}"
 
+  ## Adjust the CPUs/Memory as needed
   num_cpus  = 2
   memory    = 8192
   guest_id  = "${data.vsphere_virtual_machine.template.guest_id}"
@@ -75,47 +76,77 @@ resource "vsphere_virtual_machine" "vm" {
       }
 
       network_interface {
-        ipv4_address    = "${var.ipaddress}"
-        ipv4_netmask    = "${var.netmask}"
-        dns_server_list = "${var.dns}"
+        ipv4_address = "${var.ipaddress}"
+        ipv4_netmask = "${var.netmask}"
       }
 
-      ipv4_gateway = "${var.gateway}"
+      ipv4_gateway    = "${var.gateway}"
+      dns_server_list = "${var.dns}"
     }
   }
+  provisioner "remote-exec" {
+    inline = [
+      "mkdir /tmp/ptfe-install",
+    ]
 
-  #provisioner "remote-exec" {
-  #  inline = [
-  #    "mkdir /tmp/ptfe-install",
-  #    ]
-  #}
-  #
-  #provisioner "file" {
-  #  source      = "${var.json_location}"
-  #  destination = "/tmp/ptfe-install/settings.json"
-  #}
-  #
-  #provisioner "file" {
-  #  source      = "${var.replicated_conf}"
-  #  destination = "/etc/replicated.conf"
-  #}
-  #
-  #provisioner "file" {
-  #  source      = "${var.license}"
-  #  destination = "/tmp/ptfe-install/license.rli"
-  #}
-  #
-  #provisioner "file" {
-  #  source      = "application-install/replicated-install.sh"
-  #  destination = "/tmp/ptfe-install/replicated-install.sh"
-  #}
-  #
-  #provisioner "remote-exec" {
-  #  inline = [
-  #    "chmod +x /tmp/ptfe-install/replicated-install.sh",
-  #    "/tmp/ptfe-install/replicated-install.sh",
-  #    ]
-  #}
+    connection {
+      type     = "ssh"
+      user     = "root"
+      password = "${var.ssh_password}"
+    }
+  }
+  provisioner "file" {
+    source      = "${var.json_location}"
+    destination = "/tmp/ptfe-install/settings.json"
+
+    connection {
+      type     = "ssh"
+      user     = "root"
+      password = "${var.ssh_password}"
+    }
+  }
+  provisioner "file" {
+    source      = "${var.replicated_conf}"
+    destination = "/etc/replicated.conf"
+
+    connection {
+      type     = "ssh"
+      user     = "root"
+      password = "${var.ssh_password}"
+    }
+  }
+  provisioner "file" {
+    source      = "${var.license}"
+    destination = "/tmp/ptfe-install/license.rli"
+
+    connection {
+      type     = "ssh"
+      user     = "root"
+      password = "${var.ssh_password}"
+    }
+  }
+  provisioner "file" {
+    source      = "application-install/replicated-install.sh"
+    destination = "/tmp/ptfe-install/replicated-install.sh"
+
+    connection {
+      type     = "ssh"
+      user     = "root"
+      password = "${var.ssh_password}"
+    }
+  }
+  provisioner "remote-exec" {
+    inline = [
+      "chmod +x /tmp/ptfe-install/replicated-install.sh",
+      "/tmp/ptfe-install/replicated-install.sh",
+    ]
+
+    connection {
+      type     = "ssh"
+      user     = "root"
+      password = "${var.ssh_password}"
+    }
+  }
 }
 
 output "hostname" {
