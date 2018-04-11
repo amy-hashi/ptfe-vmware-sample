@@ -35,7 +35,7 @@ netmask = "29"
 gateway = "147.75.202.193"
 
 # DNS Server to use
-#dns = ["1.1.1.1"]
+dns = ["1.1.1.1","1.0.0.1"]
 
 # Path to the settings json on the system you are running this from
 #json_location = "application-install/settings.json"

@@ -34,7 +34,7 @@ variable "netmask" {}
 
 # The Gateway address of the server. Example: "10.0.0.1"
 variable "gateway" {}
-#variable "dns" {}
+variable "dns" {}
 
 #variable "json_location" {}
 #variable "replicated_conf" {}
