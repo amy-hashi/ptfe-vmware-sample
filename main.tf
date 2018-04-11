@@ -75,8 +75,8 @@ resource "vsphere_virtual_machine" "vm" {
       }
 
       network_interface {
-        ipv4_address = "${var.ipaddress}"
-        ipv4_netmask = "${var.netmask}"
+        ipv4_address    = "${var.ipaddress}"
+        ipv4_netmask    = "${var.netmask}"
         dns_server_list = "${var.dns}"
       }
 
