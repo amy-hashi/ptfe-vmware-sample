@@ -1,6 +1,6 @@
 # ptfe-vmware-sample
 
-### This code is provided as an example of how to deploy Private Terraform Enterprise onto vSphere using terraform. There are numerous things you must alter in order to get this to work. Please read the following directions carefully. 
+### This code is provided as an example of how to deploy Private Terraform Enterprise onto vSphere using terraform as part of the Reference Architecture Document on the same topic. There are numerous things you must alter in order to get this to work. Please read the following directions carefully. Please note this repo is provided as an example only and is not HashiCorp supported code. If you have questions or issues around deploying Private Terraform Enterprise please contact your Technical Account Manager or support. 
 
 ## Prerequisites
 
